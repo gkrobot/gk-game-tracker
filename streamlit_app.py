@@ -23,5 +23,6 @@ else:
         st.success(f'username and password match')
         time.sleep(1)
         st.session_state.authenticated = True
+        st.rerun()
     else:
       st.error('Username and password do not match our records')
