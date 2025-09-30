@@ -19,4 +19,5 @@ else:
   if user_name and password:
     st.write(f'user_name {user_name} and password found')
     if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
+        st.write(f'username and password match')
         st.session_state.authenticated = True
