@@ -2,9 +2,19 @@ import streamlit as st
 
 st.title("Welcome to gameTrax")
 
-game_options = [None, "Phase 10", "Skip-Bo", "Uno"]
+st.session_state.authenticated = False
 
-selected_game = st.selectbox(label="Select your game", options=game_options, index=0)
+if st.authenticiated == True:
+  
+  game_options = [None, "Phase 10", "Skip-Bo", "Uno"]
+  
+  selected_game = st.selectbox(label="Select your game", options=game_options, index=0)
+  
+  if selected_game:
+    st.info(f"You're playing {selected_game}!")
 
-if selected_game:
-  st.info(f"You're playing {selected_game}!")
+else:
+  user_name = st.text_input(label="Enter username")
+  password = st.text_input(label="Enter password")
+  if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
+    st.session_state.authenticated = True
