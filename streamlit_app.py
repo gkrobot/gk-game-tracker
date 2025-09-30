@@ -14,12 +14,15 @@ if st.session_state.authenticated == True:
   
   if selected_game:
     st.info(f"You're playing {selected_game}!")
+  
+  if st.button('Log out'):
+    st.session_state.authenticated = False
 
 else:
   st.session_state.user_name = st.text_input(label="Enter username", autocomplete="username")
   st.session_state.password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
   
-  if (st.session_state.user_name and st.session_state.password) or st.button('Log in'):
+  if st.session_state.user_name and st.session_state.password:
     if st.session_state.user_name == st.secrets.USER and st.session_state.password == st.secrets.PASSWORD:
         st.success(f'Success')
         time.sleep(1)
