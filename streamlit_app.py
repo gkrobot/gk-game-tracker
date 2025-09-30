@@ -18,7 +18,7 @@ else:
   password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
   if user_name and password:
     st.write(f'user_name {user_name} and password found')
-    st.write(f'st.secrets.USER')
+    st.write(f'st.secrets.USER: {st.secrets.USER}')
     if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
         st.write(f'username and password match')
         st.session_state.authenticated = True
