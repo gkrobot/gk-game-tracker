@@ -17,5 +17,5 @@ else:
   user_name = st.text_input(label="Enter username")
   password = st.text_input(label="Enter password")
   if user_name and password:
-    user_name == st.secrets.USER and password == st.secrets.PASSWORD:
-    st.session_state.authenticated = True
+    if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
+        st.session_state.authenticated = True
