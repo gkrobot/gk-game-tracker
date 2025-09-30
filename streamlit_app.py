@@ -17,6 +17,7 @@ if st.session_state.authenticated == True:
   
   if st.button('Log out'):
     st.session_state.authenticated = False
+    st.rerun()
 
 else:
   st.session_state.user_name = st.text_input(label="Enter username", autocomplete="username")
