@@ -14,8 +14,8 @@ if st.session_state.authenticated == True:
     st.info(f"You're playing {selected_game}!")
 
 else:
-  user_name = st.text_input(label="Enter username", autocomplete=username)
-  password = st.text_input(label="Enter password", type=password, autocomplete=password)
+  user_name = st.text_input(label="Enter username")
+  password = st.text_input(label="Enter password", type=password, autocomplete=current-password)
   if user_name and password:
     if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
         st.session_state.authenticated = True
