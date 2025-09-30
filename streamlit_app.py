@@ -19,7 +19,7 @@ else:
   user_name = st.text_input(label="Enter username", autocomplete="username")
   password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
   
-  if user_name and password or st.button('Log in'):
+  if (user_name and password) or st.button('Log in'):
     if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
         st.success(f'Success')
         time.sleep(1)
