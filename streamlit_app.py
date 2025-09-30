@@ -16,14 +16,15 @@ if st.session_state.authenticated == True:
     st.info(f"You're playing {selected_game}!")
 
 else:
-  user_name = st.text_input(label="Enter username", autocomplete="username")
-  password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
+  st.session_state.user_name = st.text_input(label="Enter username", autocomplete="username")
+  st.session_state.password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
   
-  if (user_name and password) or st.button('Log in'):
-    if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
+  if (st.session_state.user_name and st.session_statepassword) or st.button('Log in'):
+    if st.session_state.user_name == st.secrets.USER and st.session_state.password == st.secrets.PASSWORD:
         st.success(f'Success')
         time.sleep(1)
         st.session_state.authenticated = True
+        st.session_state.password = None
         st.rerun()
     else:
       st.error('Login credentials do not match our records')
