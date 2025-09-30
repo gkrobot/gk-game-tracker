@@ -1,8 +1,9 @@
 import streamlit as st
+import time
 
 st.title("Welcome to gameTrax")
 
-if 'authenticated not in st.session_state:
+if 'authenticated' not in st.session_state:
   st.session_state.authenticated = False
 
 if st.session_state.authenticated == True:
@@ -18,8 +19,9 @@ else:
   user_name = st.text_input(label="Enter username", autocomplete="username")
   password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
   if user_name and password:
-    st.write(f'user_name {user_name} and password found')
-    st.write(f'st.secrets.USER: {st.secrets.USER}')
     if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
-        st.write(f'username and password match')
+        st.success(f'username and password match')
+        time.sleep(1)
         st.session_state.authenticated = True
+    else:
+      st.error('Username and password do not match our records')
