@@ -20,9 +20,9 @@ else:
   password = st.text_input(label="Enter password", type="password", autocomplete="current-password")
   if user_name and password:
     if user_name == st.secrets.USER and password == st.secrets.PASSWORD:
-        st.success(f'username and password match')
+        st.success(f'Success')
         time.sleep(1)
         st.session_state.authenticated = True
         st.rerun()
     else:
-      st.error('Username and password do not match our records')
+      st.error('Login credentials do not match our records')
