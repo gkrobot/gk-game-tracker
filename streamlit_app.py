@@ -4,7 +4,7 @@ st.title("Welcome to gameTrax")
 
 st.session_state.authenticated = False
 
-if st.session_state.authenticiated == True:
+if st.session_state.authenticated == True:
   
   game_options = [None, "Phase 10", "Skip-Bo", "Uno"]
   
