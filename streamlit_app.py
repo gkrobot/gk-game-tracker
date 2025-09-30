@@ -2,7 +2,8 @@ import streamlit as st
 
 st.title("Welcome to gameTrax")
 
-st.session_state.authenticated = False
+if 'authenticated not in st.session_state:
+  st.session_state.authenticated = False
 
 if st.session_state.authenticated == True:
   
