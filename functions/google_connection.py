@@ -11,7 +11,7 @@ def google_connection():
     
     # Read data from the first worksheet, using st.cache_data for caching.
     # 'ttl="10m"' means the data will be cached for 10 minutes.
-    @st.cache_data(ttl="10m")
+    # @st.cache_data(ttl="10m")
     def load_data():
         df = conn.read(worksheet="Sheet1", usecols=list(range(4))) # Example: read first 4 columns
         # Fill NaN values with an empty string for easier handling
