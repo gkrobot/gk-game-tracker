@@ -12,7 +12,7 @@ def google_connection():
     # --- Data Loading Function with Caching ---
     
     # Read data from the first worksheet, using st.cache_data for caching.
-    # 'ttl="10m"' means the data will be cached for 10 minutes.
+    'ttl="10m"' means the data will be cached for 10 minutes.
     # The 'show_spinner=False' is added to avoid a duplicate spinner when the 
     # button is pressed and the function is re-run.
     @st.cache_data(ttl="10m", show_spinner=False)
