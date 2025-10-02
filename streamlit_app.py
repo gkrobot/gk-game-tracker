@@ -4,7 +4,7 @@ import time
 from functions.authentication import Authenticator
 authenticator = Authenticator()
 
-from functions.google_connection import
+from functions.google_connection import google_connection
 
 st.title("Welcome to gameTrax")
 
@@ -17,6 +17,7 @@ with col1:
         authenticator.login()
     
     if 'authenticated' in st.session_state and st.session_state.authenticated == True:
+        google_connection()
         if st.button('Logout'):
             authenticator.logout()
 
