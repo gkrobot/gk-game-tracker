@@ -6,6 +6,7 @@ from functions.authentication import Authenticator
 st.title("Welcome to gameTrax")
 
 if 'authenticated' not in st.session_state or st.session_state.authenticated == False:
+    st.write('Not authenticated')
     st.session_state.authenticated = False
     authenticator = Authenticator()
 
