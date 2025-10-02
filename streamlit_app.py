@@ -6,13 +6,17 @@ authenticator = Authenticator()
 
 st.title("Welcome to gameTrax")
 
-if 'authenticated' not in st.session_state or st.session_state.authenticated == False:
-    st.session_state.authenticated = False
-    authenticator.login()
+# Authenticate using username and password
+col1, col2, col3, col4, col5 = st.columns(5)
 
-if 'authenticated' in st.session_state and st.session_state.authenticated == True:
-    if st.button('Logout'):
-        authenticator.logout()
+with col2:
+    if 'authenticated' not in st.session_state or st.session_state.authenticated == False:
+        st.session_state.authenticated = False
+        authenticator.login()
+    
+    if 'authenticated' in st.session_state and st.session_state.authenticated == True:
+        if st.button('Logout'):
+            authenticator.logout()
 
 # if 'authenticated' not in st.session_state:
 #   st.session_state.authenticated = False
