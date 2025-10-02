@@ -6,41 +6,45 @@ from streamlit_gsheets import GSheetsConnection
 
 def google_connection():
     
-    # Use the connection defined in secrets.toml under [connections.gsheets]
+    # 1. Initialize the connection
     conn = st.connection("gsheets", type=GSheetsConnection)
     
     # --- Data Loading Function with Caching ---
     
-    # Read data from the first worksheet, using st.cache_data for caching.
-    # 'ttl="10m"' means the data will be cached for 10 minutes.
-    # The 'show_spinner=False' is added to avoid a duplicate spinner when the 
-    # button is pressed and the function is re-run.
     @st.cache_data(ttl="10m", show_spinner=False)
     def load_data():
-        st.write("🔄 Loading data from Google Sheets...") # Optional: show a loading message
-        df = conn.read(worksheet="Sheet1", usecols=list(range(4))) # Example: read first 4 columns
-        # Fill NaN values with an empty string for easier handling
+        st.write("🔄 Loading data from Google Sheets...")
+        # conn.read() is the function that actually hits the Sheets API
+        df = conn.read(worksheet="Sheet1", usecols=list(range(4))) 
         df = df.fillna("")
-        st.write("✅ Data loaded!") # Optional: show success message
+        st.write("✅ Data loaded!")
         return df
 
     # --- App Layout and Logic ---
 
     st.title("Data from Google Sheet")
 
-    # 1. Add the Refresh Button
-    # When the button is clicked, it returns True.
+    # The Refresh Button
     if st.button('🔄 Refresh Data Manually'):
-        # 2. Clear the cache for the specific function.
-        # This forces Streamlit to re-run the `load_data` function and fetch new data.
-        load_data.clear()
-        # Optional: Display a confirmation message
-        st.success("Data refresh triggered!")
+        # 2. CLEAR THE GSheetsConnection CACHE
+        # This clears the internal cache of the gsheets connection object.
+        conn.clear()
         
-    # 3. Load and display the data
-    # This will use the cached data if available, or fetch new data if the cache was cleared.
+        # 3. CLEAR THE st.cache_data CACHE
+        # This forces the load_data function to re-run and get a new result.
+        load_data.clear()
+        
+        st.success("Data cache cleared and fresh data requested!")
+        
+        # We need to rerun the app to apply the cache clear and re-load the data
+        # Note: st.rerun() is available in Streamlit version 1.28.0 and higher.
+        st.rerun()
+        
+    # Load and display the data
+    # This will now fetch new data because the cache was cleared (steps 2 & 3).
     data_df = load_data()
     
-    # 4. Display the DataFrame
+    # Display the DataFrame
     st.dataframe(data_df)
 
+# google_connection()
