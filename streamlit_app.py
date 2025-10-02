@@ -4,6 +4,8 @@ import time
 from functions.authentication import Authenticator
 authenticator = Authenticator()
 
+from functions.google_connection import
+
 st.title("Welcome to gameTrax")
 
 # Authenticate using username and password
