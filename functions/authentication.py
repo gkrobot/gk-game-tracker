@@ -10,8 +10,7 @@ class Authenticator:
 
     def login(self):
         # Start the form
-        with st.form("login_form"):
-            st.header("Login")
+        with st.form("login_form", border=False):
             
             # Input fields inside the form
             user_name = st.text_input(label="Enter username", autocomplete="username", key="form_username")
