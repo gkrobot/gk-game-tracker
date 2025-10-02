@@ -7,7 +7,7 @@ authenticator = Authenticator()
 st.title("Welcome to gameTrax")
 
 # Authenticate using username and password
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 with col1:
     if 'authenticated' not in st.session_state or st.session_state.authenticated == False:
