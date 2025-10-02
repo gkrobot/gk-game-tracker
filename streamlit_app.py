@@ -9,6 +9,7 @@ if 'authenticated' not in st.session_state or st.session_state.authenticated == 
     st.write('Not authenticated')
     st.session_state.authenticated = False
     authenticator = Authenticator()
+    authenticator.login()
 
 # if 'authenticated' not in st.session_state:
 #   st.session_state.authenticated = False
