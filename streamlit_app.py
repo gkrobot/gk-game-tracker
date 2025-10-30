@@ -26,7 +26,8 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
     
     google_connection()
 
-    st.session_state.selected_view = st.pills("Select View", ["Game History", "Add New Game"])
+    selected_view = st.pills("Select View", ["Game History", "Add New Game"])
+    st.session_state.selected_view = selected_view
     if st.session_state.selected_view == "Game History":
         st.header("Game History")
         if 'data' in st.session_state:
@@ -34,6 +35,12 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
             st.dataframe(st.session_state.displayed_data)
         else:
             st.write("No data available.")
+        
+        # Add a refresh button to reload data from Google Sheets
+        if st.button("Refresh Data"):
+            google_connection()
+            st.rerun()
+
     elif st.session_state.selected_view == "Add New Game":
         st.header("Add New Game")
         with st.form("add_game_form"):
@@ -44,6 +51,7 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
             submitted = st.form_submit_button("Submit")
             if submitted:
                 new_record = {
+                    "record_id": len(st.session_state.data) + 1,
                     "game": game,
                     "winner": winner,
                     "game_time": game_time
