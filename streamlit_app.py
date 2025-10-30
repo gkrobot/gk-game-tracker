@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 import time
+import pandas as pd
 
 from functions.authentication import Authenticator
 authenticator = Authenticator()
@@ -49,8 +50,10 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
                 }
                 st.write(new_record)
 
+                new_df = pd.DataFrame([new_record])
+
                 # Add the record to st.session_state.data DataFrame
-                st.session_state.data = st.session_state.data.append(new_record, ignore_index=True)
+                st.session_state.data = pd.concat([st.session_state.data, new_df], ignore_index=True)
 
                 # Update the Google Sheet with the DataFrame's new data
                 st.session_state.google_conn.update_sheet(st.session_state.data, worksheet="Active")
