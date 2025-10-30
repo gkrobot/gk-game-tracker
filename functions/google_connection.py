@@ -7,10 +7,8 @@ from streamlit_gsheets import GSheetsConnection
 def google_connection():
     # Create a connection object.
 
-    conn = st.connection("gsheets", type=GSheetsConnection)
+    st.session_state.google_conn = st.connection("gsheets", type=GSheetsConnection)
     
-    st.session_state.data = conn.read(
+    st.session_state.data = st.session_state.google_conn.read(
         worksheet="Active"
     )
-
-    # st.dataframe(st.session_state.data)

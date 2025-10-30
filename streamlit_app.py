@@ -25,7 +25,7 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
     if st.session_state.selected_view == "Game History":
         st.header("Game History")
         if 'data' in st.session_state:
-            st.session_state.displayed_data = st.session_state.data[['record_id', 'game', 'winner', 'game_time']]
+            st.session_state.displayed_data = st.session_state.data #[['record_id', 'game', 'winner', 'game_time']]
             st.dataframe(st.session_state.displayed_data)
         else:
             st.write("No data available.")
@@ -42,8 +42,7 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
                     "winner": winner,
                     "game_time": game_time
                 }
-                conn = st.connection("gsheets", type=GSheetsConnection)
-                conn.insert(new_record, worksheet="Active")
+                st.session_state.google_conn.insert(new_record, worksheet="Active")
                 st.success("New game record added successfully!")
                 time.sleep(1)
                 st.rerun()
