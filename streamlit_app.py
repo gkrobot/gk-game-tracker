@@ -56,8 +56,11 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
                 st.session_state.data = pd.concat([st.session_state.data, new_df], ignore_index=True)
 
                 # Update the Google Sheet with the DataFrame's new data
-                st.session_state.google_conn.update(st.session_state.data)
+                st.session_state.google_conn.update(
+                    data=st.session_state.data,
+                    worksheet="Active"
+                )
 
                 st.success("New game record added successfully!")
-                time.sleep(1)
+                time.sleep(4)
                 st.rerun()
