@@ -13,4 +13,4 @@ def google_connection():
         worksheet="Active"
     )
 
-    print(df)
+    st.dataframe(df)
