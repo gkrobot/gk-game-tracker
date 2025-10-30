@@ -9,8 +9,8 @@ def google_connection():
 
     conn = st.connection("gsheets", type=GSheetsConnection)
     
-    df = conn.read(
+    st.session_state.data = conn.read(
         worksheet="Active"
     )
 
-    st.dataframe(df)
+    st.dataframe(st.session_state.data)
