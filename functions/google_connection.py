@@ -13,4 +13,4 @@ def google_connection():
         worksheet="Active"
     )
 
-    st.dataframe(st.session_state.data)
+    # st.dataframe(st.session_state.data)
