@@ -1,4 +1,5 @@
 import streamlit as st
+import datetime
 import time
 
 from functions.authentication import Authenticator
@@ -17,9 +18,12 @@ with col1:
         authenticator.login()
 
 if 'authenticated' in st.session_state and st.session_state.authenticated == True:
+    col1, col2 = st.columns([3,1])
+    with col2:
+        if st.button('Logout'):
+            authenticator.logout()
+    
     google_connection()
-    if st.button('Logout'):
-        authenticator.logout()
 
     st.session_state.selected_view = st.pills("Select View", ["Game History", "Add New Game"])
     if st.session_state.selected_view == "Game History":
@@ -33,8 +37,9 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
         st.header("Add New Game")
         with st.form("add_game_form"):
             game = st.text_input("Game Name")
-            winner = st.text_input("Winner")
-            game_time = st.text_input("Game Time (e.g., 2024-06-01 15:30)")
+            winner = st.selectbox(label="Winner", options=["Garrett","CiCi"])
+            # Create start_time field with default of current time
+            game_time = st.date_input("Game Date", value=datetime.date.today())
             submitted = st.form_submit_button("Submit")
             if submitted:
                 new_record = {
@@ -42,7 +47,15 @@ if 'authenticated' in st.session_state and st.session_state.authenticated == Tru
                     "winner": winner,
                     "game_time": game_time
                 }
-                st.session_state.google_conn.insert(new_record, worksheet="Active")
+                st.write(new_record)
+
+                # Add the record to st.session_state.data DataFrame
+                st.session_state.data = st.session_state.data.append(new_record, ignore_index=True)
+
+                # Update the Google Sheet with the DataFrame's new data
+                st.session_state.google_conn.update_sheet(st.session_state.data, worksheet="Active")
+
+                # st.session_state.google_conn.insert(new_record, worksheet="Active")
                 st.success("New game record added successfully!")
                 time.sleep(1)
                 st.rerun()
